@@ -1,17 +1,17 @@
 # All of the student names are stored in an array
-# students = [
-#   {name: "Dr. Hannibal Lecter", cohort: :november},
-#   {name: "Darth Vader", cohort: :november},
-#   {name: "Nurse Ratched", cohort: :november},
-#   {name: "Michael Corleone", cohort: :november},
-#   {name: "Alex DeLarge", cohort: :november},
-#   {name: "The Wicked Witch of the West", cohort: :november},
-#   {name: "Terminator", cohort: :november},
-#   {name: "Freddy Krueger", cohort: :november},
-#   {name: "The Joker", cohort: :november},
-#   {name: "Joffrey Baratheon", cohort: :november},
-#   {name: "Norman Bates", cohort: :november},
-# ]
+ students = [
+   {name: "Dr. Hannibal Lecter", cohort: :november},
+   {name: "Darth Vader", cohort: :november},
+   {name: "Nurse Ratched", cohort: :november},
+   {name: "Michael Corleone", cohort: :november},
+   {name: "Alex DeLarge", cohort: :november},
+   {name: "The Wicked Witch of the West", cohort: :november},
+   {name: "Terminator", cohort: :november},
+   {name: "Freddy Krueger", cohort: :november},
+   {name: "The Joker", cohort: :november},
+   {name: "Joffrey Baratheon", cohort: :november},
+   {name: "Norman Bates", cohort: :november},
+ ]
 
 # Prompts the user for names of students and stores them in an array
 def input_students
@@ -41,8 +41,10 @@ end
 
 # Takes an array as an input and 'puts' each value within
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, idx|
+    # if student[:name].length < 12
+      puts "#{idx + 1}. #{student[:name]} (#{student[:cohort].capitalize} cohort)"
+    # end
   end
 end
 
@@ -52,7 +54,7 @@ def print_footer(students)
 end
 
 # Use the methods to output the student list
-students = input_students
+#students = input_students
 print_header
 print(students)
 print_footer(students)
