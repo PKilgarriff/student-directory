@@ -28,7 +28,7 @@ end
 
 # Puts a footer line containing a count of the passed in argument
 def print_footer(names)
-  print "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students"
 end
 
 # Use the methods to output the student list
