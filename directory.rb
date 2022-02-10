@@ -25,8 +25,8 @@ def input_students
   while !name.empty? do
     # add the student hash to the array
     students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
-    # get anothe rname from the user
+    puts "Now we have #{students.count} #{students.count == 1 ? "student" : "students"}"
+    # get another name from the user
     name = gets.chomp
   end
   # return the array of students
@@ -47,8 +47,8 @@ def print(students)
 end
 
 # Puts a footer line containing a count of the passed in argument
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+def print_footer(students)
+    puts "Overall, we have #{students.count} great #{students.count == 1 ? "student" : "students"}"
 end
 
 # Use the methods to output the student list
