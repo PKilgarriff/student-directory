@@ -1,4 +1,3 @@
-student_count = 11
 # All of the student names are stored in an array
 students = [
   "Dr. Hannibal Lecter",
@@ -16,16 +15,8 @@ students = [
 # Print the list of students
 puts "The students of Villains Academy"
 puts "-------------"
-puts students[0]
-puts students[1]
-puts students[2]
-puts students[3]
-puts students[4]
-puts students[5]
-puts students[6]
-puts students[7]
-puts students[8]
-puts students[9]
-puts students[10]
+students.each do |student|
+  puts student
+end
 # Finally print the total number of students
-print "Overall, we have #{student_count} great students"
+print "Overall, we have #{students.count} great students"
