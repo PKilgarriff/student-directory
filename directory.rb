@@ -1,17 +1,17 @@
 # All of the student names are stored in an array
-#  students = [
-#    {name: "Dr. Hannibal Lecter", cohort: :november, birthplace: "Lithuania"},
-#    {name: "Darth Vader", cohort: :november, birthplace: "Tatooine"},
-#    {name: "Nurse Ratched", cohort: :november, birthplace: "Oregon"},
-#    {name: "Michael Corleone", cohort: :november, birthplace: "New York"},
-#    {name: "Alex DeLarge", cohort: :november, birthplace: "Britain"},
-#    {name: "The Wicked Witch of the West", cohort: :november, birthplace: "Oz"},
-#    {name: "Terminator", cohort: :november, birthplace: "Los Angeles 2029"},
-#    {name: "Freddy Krueger", cohort: :november, birthplace: "Elm Street"},
-#    {name: "The Joker", cohort: :november, birthplace: "Gotham"},
-#    {name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing"},
-#    {name: "Norman Bates", cohort: :november, birthplace: "Bates Motel"},
-#  ]
+ students = [
+   {name: "Dr. Hannibal Lecter", cohort: :november, birthplace: "Lithuania"},
+   {name: "Darth Vader", cohort: :november, birthplace: "Tatooine"},
+   {name: "Nurse Ratched", cohort: :november, birthplace: "Oregon"},
+   {name: "Michael Corleone", cohort: :november, birthplace: "New York"},
+   {name: "Alex DeLarge", cohort: :november, birthplace: "Britain"},
+   {name: "The Wicked Witch of the West", cohort: :november, birthplace: "Oz"},
+   {name: "Terminator", cohort: :november, birthplace: "Los Angeles 2029"},
+   {name: "Freddy Krueger", cohort: :november, birthplace: "Elm Street"},
+   {name: "The Joker", cohort: :november, birthplace: "Gotham"},
+   {name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing"},
+   {name: "Norman Bates", cohort: :november, birthplace: "Bates Motel"},
+ ]
 
 # Prompts the user for names of students and stores them in an array
 def input_students
@@ -50,7 +50,11 @@ def print(students)
     # if student[:name].length < 12
     # if student[:name][0].downcase == starting_with.downcase
       # puts "#{idx + 1}. #{student[:name]} from #{student[:birthplace]} (#{student[:cohort].capitalize} cohort)"
-      puts "#{(idx + 1).to_s.ljust(2)} | #{student[:name].center(longest_name.length)} | #{student[:birthplace].center(longest_birthplace.length)} | #{student[:cohort].capitalize}"
+      student_output = "#{(idx + 1).to_s.ljust(2)} | "\
+      "#{student[:name].center(longest_name.length)} | "\
+      "#{student[:birthplace].center(longest_birthplace.length)} | "\
+      "#{student[:cohort].capitalize}"
+      puts student_output
     # end
   end
 end
