@@ -15,22 +15,23 @@ ADJECTIVES = [
 
 # All of the student names are stored in an array
 students = [
-   { name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania" },
-   { name: "Darth Vader", cohort: :february, birthplace: "Tatooine" },
-   { name: "Nurse Ratched", cohort: :march, birthplace: "Oregon" },
-   { name: "Michael Corleone", cohort: :march, birthplace: "New York" },
-   { name: "Alex DeLarge", cohort: :march, birthplace: "Britain" },
-   { name: "The Wicked Witch of the West", cohort: :june, birthplace: "Oz" },
-   { name: "Terminator", cohort: :january, birthplace: "Los Angeles 2029" },
-   { name: "Freddy Krueger", cohort: :june, birthplace: "Elm Street" },
-   { name: "The Joker", cohort: :november, birthplace: "Gotham" },
-   { name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing" },
-   { name: "Norman Bates", cohort: :november, birthplace: "Bates Motel" },
+  { name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania" },
+  { name: "Darth Vader", cohort: :february, birthplace: "Tatooine" },
+  { name: "Nurse Ratched", cohort: :march, birthplace: "Oregon" },
+  { name: "Michael Corleone", cohort: :march, birthplace: "New York" },
+  { name: "Alex DeLarge", cohort: :march, birthplace: "Britain" },
+  { name: "The Wicked Witch of the West", cohort: :june, birthplace: "Oz" },
+  { name: "Terminator", cohort: :january, birthplace: "Los Angeles 2029" },
+  { name: "Freddy Krueger", cohort: :june, birthplace: "Elm Street" },
+  { name: "The Joker", cohort: :november, birthplace: "Gotham" },
+  { name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing" },
+  { name: "Norman Bates", cohort: :november, birthplace: "Bates Motel" },
 ] if default_students
 
 # Prompts the user for names of students and stores them in an array
 def input_students
-  puts 'Please enter the names of the students'
+  puts 'Please enter student information'
+  puts 'Enter the student name, cohort, and their place of birth, separated by commas'
   puts 'To finish, just hit return twice'
   # create an empty array
   students = []
