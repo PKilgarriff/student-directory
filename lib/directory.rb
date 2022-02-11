@@ -49,7 +49,7 @@ def print_by_cohort(students)
   cohorts.each do |cohort|
     puts cohort.capitalize
     current_cohort = students.select { |student| student[:cohort] == cohort }
-    print(current_cohort)
+    current_cohort.each { |student| puts "\t#{student[:name]}" }
   end
 end
 
@@ -70,15 +70,24 @@ def print(students)
   longest_name = students.map { |student| student[:name] }.max_by(&:length)
   longest_birthplace = students.map { |student| student[:birthplace] }.max_by(&:length)
   students.each_with_index do |student, idx|
-    # if student[:name].length < 12
+    # next unless student[:name].length < 12
+
     # if student[:name][0].downcase == starting_with.downcase
     student_output = "#{(idx + 1).to_s.ljust(2)} | "\
     "#{student[:name].center(longest_name.length)} | "\
     "#{student[:birthplace].center(longest_birthplace.length)} | "\
     "#{student[:cohort].capitalize}"
     puts student_output
-    # end
   end
+  # idx = 0
+  # while idx < students.length
+  #   student_output = "#{(idx + 1).to_s.ljust(2)} | "\
+  #   "#{students[idx][:name].center(longest_name.length)} | "\
+  #   "#{students[idx][:birthplace].center(longest_birthplace.length)} | "\
+  #   "#{students[idx][:cohort].capitalize}"
+  #   puts student_output
+  #   idx += 1
+  # end
 end
 
 # Puts a footer line containing a count of the passed in argument
@@ -94,5 +103,5 @@ print_header
 # print(students, "T")
 # p cohorts(students)
 print(students)
-print_by_cohort(students)
+# print_by_cohort(students)
 print_footer(students)
