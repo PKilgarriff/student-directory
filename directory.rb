@@ -1,13 +1,13 @@
 # All of the student names are stored in an array
  students = [
-   {name: "Dr. Hannibal Lecter", cohort: :november, birthplace: "Lithuania"},
-   {name: "Darth Vader", cohort: :november, birthplace: "Tatooine"},
-   {name: "Nurse Ratched", cohort: :november, birthplace: "Oregon"},
-   {name: "Michael Corleone", cohort: :november, birthplace: "New York"},
-   {name: "Alex DeLarge", cohort: :november, birthplace: "Britain"},
-   {name: "The Wicked Witch of the West", cohort: :november, birthplace: "Oz"},
-   {name: "Terminator", cohort: :november, birthplace: "Los Angeles 2029"},
-   {name: "Freddy Krueger", cohort: :november, birthplace: "Elm Street"},
+   {name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania"},
+   {name: "Darth Vader", cohort: :february, birthplace: "Tatooine"},
+   {name: "Nurse Ratched", cohort: :march, birthplace: "Oregon"},
+   {name: "Michael Corleone", cohort: :march, birthplace: "New York"},
+   {name: "Alex DeLarge", cohort: :march, birthplace: "Britain"},
+   {name: "The Wicked Witch of the West", cohort: :june, birthplace: "Oz"},
+   {name: "Terminator", cohort: :january, birthplace: "Los Angeles 2029"},
+   {name: "Freddy Krueger", cohort: :june, birthplace: "Elm Street"},
    {name: "The Joker", cohort: :november, birthplace: "Gotham"},
    {name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing"},
    {name: "Norman Bates", cohort: :november, birthplace: "Bates Motel"},
@@ -19,18 +19,33 @@ def input_students
   puts "To finish, just hit return twice"
   # create an empty array
   students = []
+  name = "To be Overwritten"
+
   # get the first name
-  name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
+    name, cohort, birthplace = gets.chomp.split(",").map { |value| value.strip }
+    break if name === nil
+
+    cohort = :january if cohort === nil
+    birthplace = "Unknown" if birthplace === nil
+    puts "Name: #{name}, Cohort: #{cohort}, Birthplace: #{birthplace}"
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: cohort.downcase.to_sym, birthplace: birthplace}
     puts "Now we have #{students.count} #{students.count == 1 ? "student" : "students"}"
-    # get another name from the user
-    name = gets.chomp
   end
   # return the array of students
   students
+end
+
+# Return an array of the cohorts in this particular array of hashes
+def cohorts(students)
+  students.map { |student| student[:cohort] }.uniq
+end
+
+# Print the student list grouped by cohort
+def print_by_cohort(students)
+
 end
 
 # Prints a header
@@ -43,7 +58,10 @@ end
 # Takes an array as an input and 'puts' each value within
 # def print(students, starting_with)
 def print(students)
-  puts "No students are currently enrolled" if students.count == 0
+  if students.count == 0
+    puts "No students are currently enrolled"
+    break
+  end
   longest_name = students.map { |student| student[:name] }.max_by(&:length)
   longest_birthplace = students.map { |student| student[:birthplace] }.max_by(&:length)
   students.each_with_index do |student, idx|
@@ -69,5 +87,6 @@ end
 students = input_students if students == nil
 print_header
 # print(students, "T")
+p cohorts(students)
 print(students)
 print_footer(students)
