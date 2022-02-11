@@ -1,3 +1,18 @@
+# Allows for passing default argument to use prepopulated array of student hashes
+default_students = ARGV.include?('default') ? true : false
+ARGV.clear
+
+ADJECTIVES = [
+  "great",
+  "toxic",
+  "diabolical",
+  "mischievious",
+  "sinister",
+  "suspiscious",
+  "evil",
+  "scheming"
+]
+
 # All of the student names are stored in an array
 students = [
    { name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania" },
@@ -11,7 +26,7 @@ students = [
    { name: "The Joker", cohort: :november, birthplace: "Gotham" },
    { name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing" },
    { name: "Norman Bates", cohort: :november, birthplace: "Bates Motel" },
-]
+] if default_students
 
 # Prompts the user for names of students and stores them in an array
 def input_students
@@ -94,7 +109,7 @@ end
 def print_footer(students)
   return if students.count == 0
 
-  puts "Overall, we have #{students.count} great #{students.count == 1 ? "student" : "students"}"
+  puts "Overall, we have #{students.count} #{ADJECTIVES.sample} #{students.count == 1 ? "student" : "students"}"
 end
 
 # Use the methods to output the student list
