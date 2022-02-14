@@ -36,12 +36,24 @@ def process(selection)
   end
 end
 
-def load_students
+def try_load_students
+  filename = ARGV.first # first argument from command line
+  return if filename.nil? # escape if no argument given on commandline
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} does not exist."
+    exit # quit the program
+  end
+end
+
+def load_students(filename = "students.csv")
   # Open the csv file containing student data in 'read' mode
-  file = File.open("students.csv", "r")
+  file = File.open(filename, "r")
   # Iterate over the lines of the file (1 student each line)
   file.readlines.each do |line|
-    # Split the input sting on commas then parallel assign
+    # Split the input string on commas then parallel assign
     name, cohort, birthplace = line.split(",")
     # Push to student array
     @students << { name: name, cohort: cohort.to_sym, birthplace: birthplace.strip }
