@@ -33,6 +33,20 @@ def process(selection)
   end
 end
 
+def load_students
+  # Open the csv file containing student data in 'read' mode
+  file = File.open("students.csv", "r")
+  # Iterate over the lines of the file (1 student each line)
+  file.readLines.each do |line|
+    # Split the input sting on commas then parallel assign
+    name, cohort = line.split(",")
+    # Push to student array
+    @students << { name: name, cohort: cohort }
+  end
+  # Close the file
+  file.close
+end
+
 def save_students
   # Open the file to be written to in 'write' mode
   file = File.open("students.csv", "w")
