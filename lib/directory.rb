@@ -23,11 +23,28 @@ def process(selection)
     input_students
   when '2'
     show_students
+  when '3'
+    save_students
   when '9'
     exit # Terminates program
   else
     puts "Invalid selection"
   end
+end
+
+def save_students
+  # Open the file to be written to in 'write' mode
+  file = File.open("students.csv", "w")
+  # Iterate over the array of students
+  @students.each do |student|
+    # Create a comma separated string of the student's name and cohort
+    student_data = [student[:name],student[:cohort]]
+    csv_line = student_data.join(",")
+    # puts the line into the file
+    file.puts csv_line
+  end
+  # Close the file
+  file.close
 end
 
 def interactive_menu
