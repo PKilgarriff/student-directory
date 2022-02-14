@@ -42,9 +42,9 @@ def load_students
   # Iterate over the lines of the file (1 student each line)
   file.readlines.each do |line|
     # Split the input sting on commas then parallel assign
-    name, cohort = line.split(",")
+    name, cohort, birthplace = line.split(",")
     # Push to student array
-    @students << { name: name, cohort: cohort.to_sym }
+    @students << { name: name, cohort: cohort.to_sym, birthplace: birthplace }
   end
   # Close the file
   file.close
@@ -56,7 +56,7 @@ def save_students
   # Iterate over the array of students
   @students.each do |student|
     # Create a comma separated string of the student's name and cohort
-    student_data = [student[:name],student[:cohort]]
+    student_data = [student[:name],student[:cohort],student[:birthplace]]
     csv_line = student_data.join(",")
     # puts the line into the file
     file.puts csv_line
