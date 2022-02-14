@@ -44,7 +44,7 @@ def load_students
     # Split the input sting on commas then parallel assign
     name, cohort, birthplace = line.split(",")
     # Push to student array
-    @students << { name: name, cohort: cohort.to_sym, birthplace: birthplace }
+    @students << { name: name, cohort: cohort.to_sym, birthplace: birthplace.strip }
   end
   # Close the file
   file.close
