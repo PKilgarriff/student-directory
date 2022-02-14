@@ -9,6 +9,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the student list to students.csv"
+  puts "4. Load the student list from students.csv"
   puts "9. Exit program"
 end
 
@@ -26,6 +27,8 @@ def process(selection)
     show_students
   when '3'
     save_students
+  when '4'
+    load_students
   when '9'
     exit # Terminates program
   else
@@ -37,7 +40,7 @@ def load_students
   # Open the csv file containing student data in 'read' mode
   file = File.open("students.csv", "r")
   # Iterate over the lines of the file (1 student each line)
-  file.readLines.each do |line|
+  file.readlines.each do |line|
     # Split the input sting on commas then parallel assign
     name, cohort = line.split(",")
     # Push to student array
