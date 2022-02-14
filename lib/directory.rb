@@ -50,15 +50,23 @@ def try_load_students
   ARGV.clear
 end
 
+def line_to_student_hash(string)
+  name, cohort, birthplace = string.split(",").map { |value| value.strip }
+  return if name === nil
+
+  # default values if none passed
+  cohort = :january if cohort === nil
+  birthplace = "Unknown" if birthplace === nil
+  # Push the resulting values to the @students array
+  @students << { name: name, cohort: cohort.downcase.to_sym, birthplace: birthplace }
+end
+
 def load_students(filename = "students.csv")
   # Open the csv file containing student data in 'read' mode
   file = File.open(filename, "r")
   # Iterate over the lines of the file (1 student each line)
   file.readlines.each do |line|
-    # Split the input string on commas then parallel assign
-    name, cohort, birthplace = line.split(",")
-    # Push to student array
-    @students << { name: name, cohort: cohort.to_sym, birthplace: birthplace.strip }
+    line_to_student_hash(line)
   end
   # Close the file
   file.close
@@ -94,19 +102,11 @@ def input_students
   puts 'Please enter student information'
   puts 'Enter the student name, cohort, and their place of birth, separated by commas'
   puts 'To finish, just hit return twice'
-  name = 'To be Overwritten'
-
-  # get the first name
-  # while the name is not empty, repeat this code
-  until name.empty?
-    name, cohort, birthplace = gets.chomp.split(",").map { |value| value.strip }
-    break if name === nil
-
-    cohort = :january if cohort === nil
-    birthplace = "Unknown" if birthplace === nil
-    puts "Name: #{name}, Cohort: #{cohort}, Birthplace: #{birthplace}"
-    # add the student hash to the array
-    @students << { name: name, cohort: cohort.downcase.to_sym, birthplace: birthplace }
+  input = 'To be Overwritten'
+  # while the user input is not empty, repeat this code
+  until input.empty?
+    input = gets.chomp
+    line_to_student_hash(input)
     puts "Now we have #{@students.count} #{@students.count == 1 ? "student" : "students"}"
   end
 end
