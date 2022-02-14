@@ -13,6 +13,14 @@ ADJECTIVES = [
   "scheming"
 ]
 
+def interactive_menu
+  loop do
+    # 1. Print the menu and ask the user what to do
+    # 2. Read the input and save it as a variable
+    # 3. Carry out the task the user has asked for
+  end
+end
+
 # All of the student names are stored in an array
 students = [
   { name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania" },
