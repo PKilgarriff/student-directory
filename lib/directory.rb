@@ -15,13 +15,13 @@ def interactive_menu
     selection = gets.chomp
     # 3. Carry out the task the user has asked for
     case selection
-    when 1
+    when '1'
       input_students
-    when 2
+    when '2'
       print_header
       print(students)
-      print_footer
-    when 9
+      print_footer(students)
+    when '9'
       exit # Terminates program
     else
       puts "Invalid selection"
