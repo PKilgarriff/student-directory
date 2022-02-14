@@ -16,8 +16,20 @@ ADJECTIVES = [
 def interactive_menu
   loop do
     # 1. Print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit program"
     # 2. Read the input and save it as a variable
+    selection = gets.chomp
     # 3. Carry out the task the user has asked for
+    case selection
+    when 1
+      input_students
+    when 2
+      print(students)
+    when 9
+      exit
+    end
   end
 end
 
