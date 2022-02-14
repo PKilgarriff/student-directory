@@ -11,6 +11,7 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the student list to students.csv"
   puts "4. Load the student list from students.csv"
+  puts "5. Print students by cohort"
   puts "9. Exit program"
 end
 
@@ -21,7 +22,7 @@ def show_students
 end
 
 def process(selection)
-  case selection
+  success = case selection
   when '1'
     input_students
   when '2'
@@ -30,16 +31,23 @@ def process(selection)
     save_students
   when '4'
     load_students
+  when '5'
+    print_by_cohort
   when '9'
     exit # Terminates program
   else
     puts "Invalid selection"
+    continue
+  end
+  if success
+    puts "Operation successful"
+  else
+    puts "Operation failed"
   end
 end
 
 def try_load_students
-  filename = ARGV.first # first argument from command line
-  return if filename.nil? # escape if no argument given on commandline
+  filename = ARGV.first || "students.csv" # first argument from command line or students.csv
   if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -52,7 +60,7 @@ end
 
 def line_to_student_hash(string)
   name, cohort, birthplace = string.split(",").map { |value| value.strip }
-  return if name === nil
+  return false if name === nil
 
   # default values if none passed
   cohort = :january if cohort === nil
@@ -106,7 +114,7 @@ def input_students
   # while the user input is not empty, repeat this code
   until input.empty?
     input = gets.chomp
-    line_to_student_hash(input)
+    break unless line_to_student_hash(input)
     puts "Now we have #{@students.count} #{@students.count == 1 ? "student" : "students"}"
   end
 end
@@ -118,12 +126,12 @@ end
 
 # Print the student list grouped by cohort
 def print_by_cohort
-  # cohorts = cohorts
   cohorts.each do |cohort|
     puts cohort.capitalize
     current_cohort = @students.select { |student| student[:cohort] == cohort }
     current_cohort.each { |student| puts "\t#{student[:name]}" }
   end
+  true
 end
 
 # Prints a header
@@ -138,7 +146,7 @@ end
 def print_students
   if @students.count == 0
     puts 'No students are currently enrolled'
-    return
+    return false
   end
   longest_name = @students.map { |student| student[:name] }.max_by(&:length)
   longest_birthplace = @students.map { |student| student[:birthplace] }.max_by(&:length)
