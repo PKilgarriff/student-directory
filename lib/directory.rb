@@ -13,7 +13,7 @@ end
 
 def show_students
   print_header
-  print
+  print_students
   print_footer
 end
 
@@ -87,7 +87,7 @@ end
 
 # Takes an array as an input and 'puts' each value within
 # def print(students, starting_with)
-def print
+def print_students
   if @students.count == 0
     puts 'No students are currently enrolled'
     return
