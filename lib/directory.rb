@@ -1,11 +1,12 @@
 require_relative 'constants'
 
-# Allows for passing default argument to use prepopulated array of student hashes
-@default_students = ARGV.include?('default') ? true : false
-ARGV.clear
+# # Allows for passing default argument to use prepopulated array of student hashes
+# @default_students = ARGV.include?('default') ? true : false
+# ARGV.clear
+@students = @default_students ? STUDENTS : []
 
 def print_menu
-  # 1. Print the menu and ask the user what to do
+  # Print the menu of possible user options
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the student list to students.csv"
@@ -46,6 +47,7 @@ def try_load_students
     puts "Sorry, #{filename} does not exist."
     exit # quit the program
   end
+  ARGV.clear
 end
 
 def load_students(filename = "students.csv")
@@ -78,7 +80,6 @@ def save_students
 end
 
 def interactive_menu
-  @students = @default_students ? STUDENTS : []
   loop do
     print_menu
     # 2. Read the input and save it as a variable
@@ -157,6 +158,7 @@ def print_footer
   puts "Overall, we have #{@students.count} #{ADJECTIVES.sample} #{@students.count == 1 ? "student" : "students"}"
 end
 
-puts @default_students
+# Load students if passed filename on the commandline
+try_load_students
 # Call interactive_menu to run other methods based on user input
 interactive_menu
