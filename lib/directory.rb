@@ -1,19 +1,11 @@
+require_relative 'constants'
+
 # Allows for passing default argument to use prepopulated array of student hashes
-default_students = ARGV.include?('default') ? true : false
+$default_students = ARGV.include?('default') ? true : false
 ARGV.clear
 
-ADJECTIVES = [
-  "great",
-  "toxic",
-  "diabolical",
-  "mischievious",
-  "sinister",
-  "suspiscious",
-  "evil",
-  "scheming"
-]
-
 def interactive_menu
+  students = $default_students ? STUDENTS : []
   loop do
     # 1. Print the menu and ask the user what to do
     puts "1. Input the students"
@@ -26,27 +18,16 @@ def interactive_menu
     when 1
       input_students
     when 2
+      print_header
       print(students)
+      print_footer
     when 9
-      exit
+      exit # Terminates program
+    else
+      puts "Invalid selection"
     end
   end
 end
-
-# All of the student names are stored in an array
-students = [
-  { name: "Dr. Hannibal Lecter", cohort: :january, birthplace: "Lithuania" },
-  { name: "Darth Vader", cohort: :february, birthplace: "Tatooine" },
-  { name: "Nurse Ratched", cohort: :march, birthplace: "Oregon" },
-  { name: "Michael Corleone", cohort: :march, birthplace: "New York" },
-  { name: "Alex DeLarge", cohort: :march, birthplace: "Britain" },
-  { name: "The Wicked Witch of the West", cohort: :june, birthplace: "Oz" },
-  { name: "Terminator", cohort: :january, birthplace: "Los Angeles 2029" },
-  { name: "Freddy Krueger", cohort: :june, birthplace: "Elm Street" },
-  { name: "The Joker", cohort: :november, birthplace: "Gotham" },
-  { name: "Joffrey Baratheon", cohort: :november, birthplace: "King's Landing" },
-  { name: "Norman Bates", cohort: :november, birthplace: "Bates Motel" },
-] if default_students
 
 # Prompts the user for names of students and stores them in an array
 def input_students
@@ -133,11 +114,7 @@ def print_footer(students)
   puts "Overall, we have #{students.count} #{ADJECTIVES.sample} #{students.count == 1 ? "student" : "students"}"
 end
 
-# Use the methods to output the student list
-students = input_students if students == nil
-print_header
-# print(students, "T")
-# p cohorts(students)
-print(students)
-# print_by_cohort(students)
-print_footer(students)
+
+puts $default_students
+# Call interactive_menu to run other methods based on user input
+interactive_menu
