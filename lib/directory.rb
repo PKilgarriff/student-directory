@@ -22,7 +22,7 @@ def show_students
 end
 
 def process(selection)
-  success = case selection
+  case selection
   when '1'
     input_students
   when '2'
@@ -37,13 +37,12 @@ def process(selection)
     exit # Terminates program
   else
     puts "Invalid selection"
-    continue
   end
-  if success
-    puts "Operation successful"
-  else
-    puts "Operation failed"
-  end
+  # if success
+    # puts "Operation successful"
+  # else
+    # puts "Operation failed"
+  # end
 end
 
 def try_load_students
@@ -110,9 +109,7 @@ def input_students
   puts 'Please enter student information'
   puts 'Enter the student name, cohort, and their place of birth, separated by commas'
   puts 'To finish, just hit return twice'
-  input = 'To be Overwritten'
-  # while the user input is not empty, repeat this code
-  until input.empty?
+  while true
     input = gets.chomp
     break unless line_to_student_hash(input)
     puts "Now we have #{@students.count} #{@students.count == 1 ? "student" : "students"}"
@@ -129,9 +126,8 @@ def print_by_cohort
   cohorts.each do |cohort|
     puts cohort.capitalize
     current_cohort = @students.select { |student| student[:cohort] == cohort }
-    current_cohort.each { |student| puts "\t#{student[:name]}" }
+    current_cohort.each { |student| puts " - #{student[:name]}" }
   end
-  true
 end
 
 # Prints a header
@@ -146,7 +142,7 @@ end
 def print_students
   if @students.count == 0
     puts 'No students are currently enrolled'
-    return false
+    return
   end
   longest_name = @students.map { |student| student[:name] }.max_by(&:length)
   longest_birthplace = @students.map { |student| student[:birthplace] }.max_by(&:length)
