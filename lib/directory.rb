@@ -9,8 +9,8 @@ def print_menu
   # Print the menu of possible user options
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the student list to students.csv"
-  puts "4. Load the student list from students.csv"
+  puts "3. Save the student list to file"
+  puts "4. Load the student list from file"
   puts "5. Print students by cohort"
   puts "9. Exit program"
 end
@@ -28,9 +28,9 @@ def process(selection)
   when '2'
     show_students
   when '3'
-    save_students
+    request_filename("save")
   when '4'
-    load_students
+    request_filename("load")
   when '5'
     print_by_cohort
   when '9'
@@ -38,18 +38,12 @@ def process(selection)
   else
     puts "Invalid selection"
   end
-  # if success
-    # puts "Operation successful"
-  # else
-    # puts "Operation failed"
-  # end
 end
 
 def try_load_students
   filename = ARGV.first || "students.csv" # first argument from command line or students.csv
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} does not exist."
     exit # quit the program
@@ -68,7 +62,17 @@ def line_to_student_hash(string)
   @students << { name: name, cohort: cohort.downcase.to_sym, birthplace: birthplace }
 end
 
+def request_filename(save_load)
+  puts "Which file would you like to #{save_load == "save" ? "save to" : "load from"}? Hit return to default to 'students.csv'"
+  filename = gets.chomp
+  filename = "students.csv" if filename.empty?
+  filename += ".csv" unless filename.include?('.')
+  save_load == "save" ? save_students(filename) : load_students(filename)
+end
+
 def load_students(filename = "students.csv")
+  # Get Current count of students to compare after loading
+  old_count = @students.count
   # Open the csv file containing student data in 'read' mode
   file = File.open(filename, "r")
   # Iterate over the lines of the file (1 student each line)
@@ -77,21 +81,23 @@ def load_students(filename = "students.csv")
   end
   # Close the file
   file.close
+  puts "Loaded #{@students.count - old_count} from #{filename}"
 end
 
-def save_students
+def save_students(filename = "students.csv")
   # Open the file to be written to in 'write' mode
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # Iterate over the array of students
   @students.each do |student|
     # Create a comma separated string of the student's name and cohort
-    student_data = [student[:name],student[:cohort],student[:birthplace]]
+    student_data = [student[:name], student[:cohort], student[:birthplace]]
     csv_line = student_data.join(",")
     # puts the line into the file
     file.puts csv_line
   end
   # Close the file
   file.close
+  puts "Student list saved to #{filename}"
 end
 
 def interactive_menu
@@ -109,7 +115,7 @@ def input_students
   puts 'Please enter student information'
   puts 'Enter the student name, cohort, and their place of birth, separated by commas'
   puts 'To finish, just hit return twice'
-  while true
+  loop do
     input = gets.chomp
     break unless line_to_student_hash(input)
     puts "Now we have #{@students.count} #{@students.count == 1 ? "student" : "students"}"
@@ -155,7 +161,7 @@ def print_students
   end
 end
 
-# Puts a footer line containing a count of the passed in argument
+# Puts a footer line containing a count of students
 def print_footer
   return if @students.count == 0
 
