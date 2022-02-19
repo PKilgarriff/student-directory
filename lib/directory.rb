@@ -34,19 +34,24 @@ def process(selection)
   when '5'
     print_by_cohort
   when '9'
-    exit # Terminates program
+    quit
   else
     puts "Invalid selection"
   end
 end
 
+def quit
+  puts "Exiting program..."
+  exit # Terminates program
+end
+
 def try_load_students
   filename = ARGV.first || "students.csv" # first argument from command line or students.csv
-  if File.exists?(filename)
+  if File.exist?(filename)
     load_students(filename)
   else
     puts "Sorry, #{filename} does not exist."
-    exit # quit the program
+    quit
   end
   ARGV.clear
 end
@@ -58,7 +63,7 @@ def line_to_student_hash(string)
   # default values if none passed
   cohort = :january if cohort === nil
   birthplace = "Unknown" if birthplace === nil
-  # Push the resulting values to the @students array
+  # Push the resulting values to the @students array
   @students << { name: name, cohort: cohort.downcase.to_sym, birthplace: birthplace }
 end
 
@@ -118,6 +123,7 @@ def input_students
   loop do
     input = gets.chomp
     break unless line_to_student_hash(input)
+
     puts "Now we have #{@students.count} #{@students.count == 1 ? "student" : "students"}"
   end
 end
