@@ -1,7 +1,7 @@
 require_relative 'constants'
 
 # # Allows for passing default argument to use prepopulated array of student hashes
-# @default_students = ARGV.include?('default') ? true : false
+# @default_students = ARGV.include?('default')
 # ARGV.clear
 @students = @default_students ? STUDENTS : []
 
@@ -59,6 +59,8 @@ end
 def line_to_student_hash(string)
   name, cohort, birthplace = string.split(",").map { |value| value.strip }
   return false if name === nil
+  # Henry's method of sorting cohort typos
+  # unless "FAMJSOND".include?(cohort[0].upcase)
 
   # default values if none passed
   cohort = :january if cohort === nil
@@ -79,29 +81,27 @@ def load_students(filename = "students.csv")
   # Get Current count of students to compare after loading
   old_count = @students.count
   # Open the csv file containing student data in 'read' mode
-  file = File.open(filename, "r")
-  # Iterate over the lines of the file (1 student each line)
-  file.readlines.each do |line|
-    line_to_student_hash(line)
-  end
-  # Close the file
-  file.close
+  File.open(filename, "r") do |file|
+    # Iterate over the lines of the file (1 student each line)
+    file.readlines.each do |line|
+      line_to_student_hash(line)
+    end
+  end # File closed automatically at end of block
   puts "Loaded #{@students.count - old_count} from #{filename}"
 end
 
 def save_students(filename = "students.csv")
   # Open the file to be written to in 'write' mode
-  file = File.open(filename, "w")
-  # Iterate over the array of students
-  @students.each do |student|
-    # Create a comma separated string of the student's name and cohort
-    student_data = [student[:name], student[:cohort], student[:birthplace]]
-    csv_line = student_data.join(",")
-    # puts the line into the file
-    file.puts csv_line
+  File.open(filename, "w") do |file|
+    # Iterate over the array of students
+    @students.each do |student|
+      # Create a comma separated string of the student's name and cohort
+      student_data = [student[:name], student[:cohort], student[:birthplace]]
+      csv_line = student_data.join(",")
+      # puts the line into the file
+      file.puts csv_line
+    end
   end
-  # Close the file
-  file.close
   puts "Student list saved to #{filename}"
 end
 
@@ -114,6 +114,7 @@ def interactive_menu
     process(selection)
   end
 end
+
 
 # Prompts the user for names of students and stores them in an array
 def input_students
