@@ -1,3 +1,4 @@
+require 'csv'
 require_relative 'constants'
 
 # # Allows for passing default argument to use prepopulated array of student hashes
@@ -91,17 +92,12 @@ def load_students(filename = "students.csv")
 end
 
 def save_students(filename = "students.csv")
-  # Open the file to be written to in 'write' mode
-  File.open(filename, "w") do |file|
-    # Iterate over the array of students
+  csv_object = CSV.generate do |csv|
     @students.each do |student|
-      # Create a comma separated string of the student's name and cohort
-      student_data = [student[:name], student[:cohort], student[:birthplace]]
-      csv_line = student_data.join(",")
-      # puts the line into the file
-      file.puts csv_line
+      csv << [student[:name], student[:cohort], student[:birthplace]]
     end
   end
+  File.write(filename.include?(".") ? filename : filename + ".csv", csv_object)
   puts "Student list saved to #{filename}"
 end
 
@@ -114,7 +110,6 @@ def interactive_menu
     process(selection)
   end
 end
-
 
 # Prompts the user for names of students and stores them in an array
 def input_students
